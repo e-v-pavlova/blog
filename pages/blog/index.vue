@@ -1,5 +1,6 @@
 <template>
   <div>
+    <the-header />
     <div
       v-for="article in articles"
       :key="article.slug"
