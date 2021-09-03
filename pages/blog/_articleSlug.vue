@@ -36,6 +36,10 @@
         </li>
       </ul>
     </nav>
+    <prev-next
+      :prev="prev"
+      :next="next"
+    />
   </div>
 </template>
 
@@ -48,9 +52,16 @@ export default {
       .where({ name: { $containsAny: article.categories } })
       .fetch();
     const categories = Object.assign({}, ...categoryList.map((s) => ({ [s.name]: s })));
+    const [prev, next] = await $content('articles')
+      .only(['title', 'slug'])
+      .sortBy('createdAt', 'asc')
+      .surround(params.articleSlug)
+      .fetch();
     return {
       article,
       categories,
+      prev,
+      next,
     };
   },
   methods: {
