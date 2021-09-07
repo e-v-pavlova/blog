@@ -28,5 +28,17 @@ export default {
       articles,
     };
   },
+  head() {
+    return {
+      title: 'Blog',
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${this.$config.baseUrl}/blog`,
+        },
+      ],
+    };
+  },
 };
 </script>

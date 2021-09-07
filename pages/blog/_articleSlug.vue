@@ -64,6 +64,18 @@ export default {
       next,
     };
   },
+  head() {
+    return {
+      title: this.article.title,
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${this.$config.baseUrl}/blog/${this.$route.params.articleSlug}`,
+        },
+      ],
+    };
+  },
   methods: {
     formatDate(date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };

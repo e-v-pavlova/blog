@@ -32,5 +32,17 @@ export default {
       categories,
     };
   },
+  head() {
+    return {
+      title: 'All categories',
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${this.$config.baseUrl}/blog/category`,
+        },
+      ],
+    };
+  },
 };
 </script>

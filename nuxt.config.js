@@ -18,4 +18,20 @@ export default {
   sitemap: {
     hostname: process.env.BASE_URL,
   },
+  head: {
+    htmlAttrs: {
+      lang: 'en-GB',
+    },
+    title: 'Blog site',
+    link: [
+      {
+        hid: 'canonical',
+        rel: 'canonical',
+        href: process.env.BASE_URL,
+      },
+    ],
+  },
+  publicRuntimeConfig: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+  },
 };

@@ -49,6 +49,18 @@ export default {
       category,
     };
   },
+  head() {
+    return {
+      title: `Category: ${this.$route.params.categorySlug}`,
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${this.$config.baseUrl}/blog/category/${this.$route.params.categorySlug}`,
+        },
+      ],
+    };
+  },
   methods: {
     formatDate(date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
