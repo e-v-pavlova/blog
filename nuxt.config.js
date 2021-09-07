@@ -2,6 +2,10 @@ export default {
   target: 'static',
   modules: [
     '@nuxt/content',
+    '@nuxtjs/sitemap',
+  ],
+  buildModules: [
+    '@/modules/sitemapRouteGenerator',
   ],
   content: {
     markdown: {
@@ -11,4 +15,7 @@ export default {
     },
   },
   components: true,
+  sitemap: {
+    hostname: process.env.BASE_URL,
+  },
 };
