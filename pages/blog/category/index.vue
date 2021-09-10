@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import getMetadata from '@/utils/getMetadata';
+
 export default {
   async asyncData({ $content }) {
     const articles = await $content('articles')
@@ -42,7 +44,18 @@ export default {
           href: `${this.$config.baseUrl}/blog/category`,
         },
       ],
+      meta: this.metadata,
     };
+  },
+  computed: {
+    metadata() {
+      const meta = {
+        title: 'All categories',
+        description: 'Categories of articles',
+        url: `${this.$config.baseUrl}/blog/category`,
+      };
+      return getMetadata(meta, this.$config.baseUrl);
+    },
   },
 };
 </script>

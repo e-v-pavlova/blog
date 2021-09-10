@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import getMetadata from '@/utils/getMetadata';
+
 export default {
   async asyncData({ $content, params }) {
     const categories = await $content('categories')
@@ -59,7 +61,18 @@ export default {
           href: `${this.$config.baseUrl}/blog/category/${this.$route.params.categorySlug}`,
         },
       ],
+      meta: this.metadata,
     };
+  },
+  computed: {
+    metadata() {
+      const meta = {
+        title: this.category.name,
+        description: `Articles by category ${this.category.name}`,
+        url: `${this.$config.baseUrl}/blog/category/${this.$route.params.categorySlug}`,
+      };
+      return getMetadata(meta, this.$config.baseUrl);
+    },
   },
   methods: {
     formatDate(date) {

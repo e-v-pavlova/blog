@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import getMetadata from '@/utils/getMetadata';
+
 export default {
   async asyncData({ $content, params }) {
     const article = await $content('articles', params.articleSlug).fetch();
@@ -74,7 +76,33 @@ export default {
           href: `${this.$config.baseUrl}/blog/${this.$route.params.articleSlug}`,
         },
       ],
+      meta: [
+        ...this.metadata,
+        {
+          property: 'article:published_time',
+          content: this.article.createdAt,
+        },
+        {
+          property: 'article:modified_time',
+          content: this.article.updatedAt,
+        },
+        {
+          property: 'article:tag',
+          content: this.article.categories ? this.article.categories.toString() : '',
+        },
+      ],
     };
+  },
+  computed: {
+    metadata() {
+      const meta = {
+        type: 'article',
+        title: this.article.title,
+        description: this.article.description,
+        url: `${this.$config.baseUrl}/blog/${this.$route.params.articleSlug}`,
+      };
+      return getMetadata(meta, this.$config.baseUrl);
+    },
   },
   methods: {
     formatDate(date) {

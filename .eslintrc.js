@@ -20,5 +20,7 @@ module.exports = {
     'nuxt',
   ],
   rules: {
+    'import/no-unresolved': 'off',
+    'import/extensions': ['error', { js: 'ignorePackages' }],
   },
 };
