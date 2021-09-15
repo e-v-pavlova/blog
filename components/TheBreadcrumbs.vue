@@ -5,20 +5,16 @@
       :key="`breadcrumb-${index}`"
     >
       <div
-        v-if="item.multiple"
+        v-if="item.elems && Array.isArray(item.elems)"
       >
         <link-set
           :items="item.elems"
         />
       </div>
-      <div
-        v-else-if="item.disabled || !item.url"
-      >
-        {{ item.name }}
-      </div>
       <nuxt-link
-        v-else
-        :to="item.url"
+        :is="item.disabled || !item.url ? 'div' : 'nuxt-link' "
+        v-else-if="item.name"
+        :to="item.disabled || !item.url ? undefined : item.url"
       >
         {{ item.name }}
       </nuxt-link>

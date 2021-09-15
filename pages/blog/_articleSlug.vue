@@ -92,7 +92,6 @@ export default {
       ];
       if (this.categories) {
         items.push({
-          multiple: true,
           elems: this.categories,
         });
       }
