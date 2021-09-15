@@ -1,5 +1,6 @@
 <template>
   <div>
+    <the-breadcrumbs :items="breadcrumbs" />
     <h1>
       {{ category.name }}
     </h1>
@@ -65,6 +66,22 @@ export default {
     };
   },
   computed: {
+    breadcrumbs() {
+      return [
+        {
+          name: 'Blog',
+          url: '/blog',
+        },
+        {
+          name: 'Category',
+          url: '/blog/category',
+        },
+        {
+          name: this.$route.params.categorySlug,
+          disabled: true,
+        },
+      ];
+    },
     metadata() {
       const meta = {
         title: this.category.name,

@@ -1,25 +1,11 @@
 <template>
   <div>
+    <the-breadcrumbs :items="breadcrumbs" />
     <article>
       <h1>{{ article.title }}</h1>
       <p>{{ article.description }}</p>
       <p>Post was created: {{ formatDate(article.createdAt) }}</p>
       <p>Post last updated: {{ formatDate(article.updatedAt) }}</p>
-      <span
-        v-for="(category, index) in article.categories"
-        :key="`category-${index}`"
-      >
-        <nuxt-link
-          :to="{
-            name: 'blog-category-categorySlug',
-            params: { categorySlug: categories[category].slug },
-          }"
-        >
-          <span>
-            {{ categories[category].name }}
-          </span>
-        </nuxt-link>
-      </span>
       <nuxt-content :document="article" />
     </article>
     <nav>
@@ -53,7 +39,7 @@ export default {
       .only(['name', 'slug'])
       .where({ name: { $containsAny: article.categories } })
       .fetch();
-    const categories = Object.assign({}, ...categoryList.map((s) => ({ [s.name]: s })));
+    const categories = categoryList.map((obj) => ({ ...obj, url: `/blog/category/${obj.slug}` }));
     const [prev, next] = await $content('articles')
       .only(['title', 'slug'])
       .sortBy('createdAt', 'asc')
@@ -94,6 +80,18 @@ export default {
     };
   },
   computed: {
+    breadcrumbs() {
+      return [
+        {
+          name: 'Blog',
+          url: '/blog',
+        },
+        {
+          multiple: true,
+          elems: this.categories,
+        },
+      ];
+    },
     metadata() {
       const meta = {
         type: 'article',
