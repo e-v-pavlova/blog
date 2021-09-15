@@ -35,11 +35,14 @@ import getMetadata from '@/utils/getMetadata';
 export default {
   async asyncData({ $content, params }) {
     const article = await $content('articles', params.articleSlug).fetch();
-    const categoryList = await $content('categories')
-      .only(['name', 'slug'])
-      .where({ name: { $containsAny: article.categories } })
-      .fetch();
-    const categories = categoryList.map((obj) => ({ ...obj, url: `/blog/category/${obj.slug}` }));
+    let categories;
+    if (article.categories) {
+      const categoryList = await $content('categories')
+        .only(['name', 'slug'])
+        .where({ name: { $containsAny: article.categories } })
+        .fetch();
+      categories = categoryList.map((obj) => ({ ...obj, url: `/blog/category/${obj.slug}` }));
+    }
     const [prev, next] = await $content('articles')
       .only(['title', 'slug'])
       .sortBy('createdAt', 'asc')
@@ -81,16 +84,19 @@ export default {
   },
   computed: {
     breadcrumbs() {
-      return [
+      const items = [
         {
           name: 'Blog',
           url: '/blog',
         },
-        {
+      ];
+      if (this.categories) {
+        items.push({
           multiple: true,
           elems: this.categories,
-        },
-      ];
+        });
+      }
+      return items;
     },
     metadata() {
       const meta = {
