@@ -1,26 +1,23 @@
 <template>
   <div>
-    <the-header />
-    <div>
-      <article-list
-        :articles="paginatedArticles"
-      />
-      <article-pagination
-        v-if="lastPage > 1"
-        :total="lastPage"
-        :current="currentPage"
-      />
-    </div>
+    <article-list
+      :articles="paginatedArticles"
+    />
+    <article-pagination
+      v-if="lastPage > 1"
+      :total="lastPage"
+      :current="currentPage"
+    />
   </div>
 </template>
 
 <script>
-import getMetadata from '@/utils/getMetadata';
 import getPageContent from '@/utils/getPageContent';
+import getMetadata from '@/utils/getMetadata';
 
 export default {
-  async asyncData({ $content, error }) {
-    const currentPage = 1;
+  async asyncData({ $content, params, error }) {
+    const currentPage = parseInt(params.pageSlug, 10);
     const pageContent = await getPageContent($content, currentPage, error);
     return {
       currentPage: pageContent.currentPage,
@@ -30,12 +27,12 @@ export default {
   },
   head() {
     return {
-      title: 'Blog',
+      title: `Blog page ${this.$route.params.pageSlug}`,
       link: [
         {
           hid: 'canonical',
           rel: 'canonical',
-          href: `${this.$config.baseUrl}/blog`,
+          href: `${this.$config.baseUrl}/blog/page/${this.$route.params.pageSlug}`,
         },
       ],
       meta: this.metadata,
@@ -44,9 +41,9 @@ export default {
   computed: {
     metadata() {
       const meta = {
-        title: 'Blog',
+        title: `Blog page ${this.$route.params.pageSlug}`,
         description: 'List of articles',
-        url: `${this.$config.baseUrl}/blog`,
+        url: `${this.$config.baseUrl}/blog/page/${this.$route.params.pageSlug}`,
       };
       return getMetadata(meta, this.$config.baseUrl);
     },
