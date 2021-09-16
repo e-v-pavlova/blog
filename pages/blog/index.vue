@@ -11,6 +11,7 @@
         :current="currentPage"
       />
     </div>
+    <the-footer />
   </div>
 </template>
 
