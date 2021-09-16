@@ -1,6 +1,5 @@
 <template>
   <div>
-    <the-header />
     <div>
       <article-list
         :articles="paginatedArticles"
@@ -11,7 +10,6 @@
         :current="currentPage"
       />
     </div>
-    <the-footer />
   </div>
 </template>
 
