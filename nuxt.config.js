@@ -79,5 +79,6 @@ export default {
   },
   generate: {
     fallback: '404.html',
+    subFolders: false,
   },
 };
