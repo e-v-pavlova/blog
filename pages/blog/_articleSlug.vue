@@ -22,6 +22,10 @@
         </li>
       </ul>
     </nav>
+    <share-buttons
+      :url="`${$config.baseUrl}/blog/${$route.params.articleSlug}`"
+      :title="article.title"
+    />
     <prev-next
       :prev="prev"
       :next="next"
