@@ -15,10 +15,14 @@
     "@nuxtjs/sitemap": "^2.4.0"
   },
   "devDependencies": {
+    "@nuxtjs/tailwindcss": "^4.2.1",
+    "autoprefixer": "^10.3.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-vue": "^7.15.2"
+    "eslint-plugin-vue": "^7.15.2",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.15"
   }
 }

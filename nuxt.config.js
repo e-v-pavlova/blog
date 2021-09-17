@@ -9,6 +9,7 @@ export default {
     '@nuxtjs/sitemap',
   ],
   buildModules: [
+    '@nuxtjs/tailwindcss',
     '@/modules/sitemapRouteGenerator',
   ],
   content: {
