@@ -1,5 +1,8 @@
 <template>
   <div>
+    <category-list
+      :categories="categories"
+    />
     <article-list
       :articles="paginatedArticles"
     />
@@ -23,6 +26,7 @@ export default {
       currentPage: pageContent.currentPage,
       lastPage: pageContent.lastPage,
       paginatedArticles: pageContent.paginatedArticles,
+      categories: pageContent.mountedCategories,
     };
   },
   head() {

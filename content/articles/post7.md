@@ -2,7 +2,8 @@
 title: Post 7
 description: post 7 description
 categories:
-  - tag1
+  - Js
+  - extra
 ---
 
 ## Heading example

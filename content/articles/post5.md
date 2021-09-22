@@ -2,7 +2,7 @@
 title: Post 5
 description: post 5 description
 categories:
-  - tag1
+  - vs code
 ---
 
 ## Heading example
