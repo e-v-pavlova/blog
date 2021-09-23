@@ -15,8 +15,29 @@ function getSkipNumber(currentPage, lastPage, totalArticles, perPage) {
   }
 }
 
-function mountCategories(allArticles, categories) {
-  const namedCategories = categories.reduce((acc, category) => {
+function mountCategories(categoriesUsedInArticles, availableCategories) {
+  const indexes = {};
+  const mountedCategories = categoriesUsedInArticles.reduce((acc, category) => {
+    const lowercaseName = category.toLowerCase();
+    if (availableCategories[lowercaseName] && availableCategories[lowercaseName].slug) {
+      if (!Object.prototype.hasOwnProperty.call(indexes, lowercaseName)) {
+        indexes[lowercaseName] = acc.length;
+        acc.push({
+          name: category,
+          count: 1,
+          slug: availableCategories[lowercaseName].slug,
+        });
+      } else {
+        acc[indexes[lowercaseName]].count += 1;
+      }
+    }
+    return acc;
+  }, []);
+  return mountedCategories;
+}
+
+function prepareCategories(allArticles, categories) {
+  const availableCategories = categories.reduce((acc, category) => {
     if (category.name) {
       acc[category.name.toLowerCase()] = category;
     }
@@ -28,25 +49,7 @@ function mountCategories(allArticles, categories) {
     }
     return [];
   }));
-  const lowercaseNames = {};
-  const mountedCategories = categoriesUsedInArticles.reduce((acc, category) => {
-    const lowercaseName = category.toLowerCase();
-    if (!acc[category]) {
-      if (Object.prototype.hasOwnProperty.call(lowercaseNames, lowercaseName)) {
-        acc[lowercaseNames[lowercaseName]].count += 1;
-      } else if (namedCategories[lowercaseName] && namedCategories[lowercaseName].slug) {
-        lowercaseNames[lowercaseName] = category;
-        acc[category] = {
-          name: category,
-          count: 1,
-          slug: namedCategories[lowercaseName].slug,
-        };
-      }
-    } else {
-      acc[category].count += 1;
-    }
-    return acc;
-  }, {});
+  const mountedCategories = mountCategories(categoriesUsedInArticles, availableCategories);
   return mountedCategories;
 }
 
@@ -69,10 +72,10 @@ export default async ($content, currentPage = 1, error) => {
   if (!paginatedArticles.length) {
     dispatchError(error);
   }
-  const mountedCategories = mountCategories(allArticles, categories);
+  const preparedCategories = prepareCategories(allArticles, categories);
   return {
     lastPage,
     paginatedArticles,
-    mountedCategories,
+    preparedCategories,
   };
 };

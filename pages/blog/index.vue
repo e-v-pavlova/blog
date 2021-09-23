@@ -28,7 +28,7 @@ export default {
       currentPage,
       lastPage: pageContent.lastPage,
       articles: pageContent.paginatedArticles,
-      categories: pageContent.mountedCategories,
+      categories: pageContent.preparedCategories,
     };
   },
   head() {
