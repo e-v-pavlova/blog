@@ -36,6 +36,10 @@ function mountCategories(categoriesUsedInArticles, availableCategories) {
   return mountedCategories;
 }
 
+function sortCategories(categories) {
+  return categories.sort((a, b) => (a.count > b.count ? 1 : -1));
+}
+
 function prepareCategories(allArticles, categories) {
   const availableCategories = categories.reduce((acc, category) => {
     if (category.name) {
@@ -50,7 +54,8 @@ function prepareCategories(allArticles, categories) {
     return [];
   }));
   const mountedCategories = mountCategories(categoriesUsedInArticles, availableCategories);
-  return mountedCategories;
+  const sortedCategories = sortCategories(mountedCategories);
+  return sortedCategories;
 }
 
 export default async ($content, currentPage = 1, error) => {
