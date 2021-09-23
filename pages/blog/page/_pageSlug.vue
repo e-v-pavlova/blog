@@ -4,7 +4,7 @@
       :categories="categories"
     />
     <article-list
-      :articles="paginatedArticles"
+      :articles="articles"
     />
     <article-pagination
       v-if="lastPage > 1"
@@ -23,9 +23,9 @@ export default {
     const currentPage = parseInt(params.pageSlug, 10);
     const pageContent = await getPageContent($content, currentPage, error);
     return {
-      currentPage: pageContent.currentPage,
+      currentPage,
       lastPage: pageContent.lastPage,
-      paginatedArticles: pageContent.paginatedArticles,
+      articles: pageContent.paginatedArticles,
       categories: pageContent.mountedCategories,
     };
   },

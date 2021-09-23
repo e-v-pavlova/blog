@@ -1,60 +1,33 @@
-export default async ($content, currentPage = 1, error) => {
-  const perPage = 5;
-  const allArticles = await $content('articles').fetch();
-  const totalArticles = allArticles.length;
-  const lastPage = Math.ceil(totalArticles / perPage);
+function dispatchError(error) {
+  return error({ statusCode: 404, message: 'No articles found!' });
+}
 
-  if (currentPage === 0
-    || Number.isNaN(currentPage)
-    || currentPage > lastPage
-  ) {
-    return error({ statusCode: 404, message: 'No articles found!' });
-  }
-
+function getSkipNumber(currentPage, lastPage, totalArticles, perPage) {
   const modulo = totalArticles % perPage;
   const lastPageArticlesCount = modulo === 0 ? perPage : modulo;
-
-  let skipNumber;
   switch (currentPage) {
     case 1:
-      skipNumber = 0;
-      break;
+      return 0;
     case lastPage:
-      skipNumber = totalArticles - lastPageArticlesCount;
-      break;
+      return totalArticles - lastPageArticlesCount;
     default:
-      skipNumber = (currentPage - 1) * perPage;
+      return (currentPage - 1) * perPage;
   }
+}
 
-  const paginatedArticles = await $content('articles')
-    .only(['title', 'description', 'slug', 'createdAt'])
-    .sortBy('createdAt', 'desc')
-    .limit(perPage)
-    .skip(skipNumber)
-    .fetch();
-
-  if (!paginatedArticles.length) {
-    return error({ statusCode: 404, message: 'No articles found!' });
-  }
-
-  const categories = await $content('categories')
-    .only(['slug', 'name'])
-    .fetch();
-
+function mountCategories(allArticles, categories) {
   const namedCategories = categories.reduce((acc, category) => {
     if (category.name) {
       acc[category.name.toLowerCase()] = category;
     }
     return acc;
   }, {});
-
   const categoriesUsedInArticles = (allArticles.flatMap((article) => {
     if (article.categories) {
       return [...new Set(article.categories)];
     }
     return [];
   }));
-
   const lowercaseNames = {};
   const mountedCategories = categoriesUsedInArticles.reduce((acc, category) => {
     const lowercaseName = category.toLowerCase();
@@ -74,9 +47,30 @@ export default async ($content, currentPage = 1, error) => {
     }
     return acc;
   }, {});
+  return mountedCategories;
+}
 
+export default async ($content, currentPage = 1, error) => {
+  const allArticles = await $content('articles').only(['categories']).fetch();
+  const categories = await $content('categories').only(['slug', 'name']).fetch();
+  const perPage = 5;
+  const totalArticles = allArticles.length;
+  const lastPage = Math.ceil(totalArticles / perPage);
+  if (currentPage === 0 || Number.isNaN(currentPage) || currentPage > lastPage) {
+    dispatchError(error);
+  }
+  const skipNumber = getSkipNumber(currentPage, lastPage, totalArticles, perPage);
+  const paginatedArticles = await $content('articles')
+    .only(['title', 'description', 'slug', 'createdAt'])
+    .sortBy('createdAt', 'desc')
+    .limit(perPage)
+    .skip(skipNumber)
+    .fetch();
+  if (!paginatedArticles.length) {
+    dispatchError(error);
+  }
+  const mountedCategories = mountCategories(allArticles, categories);
   return {
-    currentPage,
     lastPage,
     paginatedArticles,
     mountedCategories,
