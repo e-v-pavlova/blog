@@ -1,11 +1,14 @@
 module.exports = {
   purge: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
+    fontFamily: {
+      primary: ['Lato', 'sans-serif'],
+      secondary: ['Vollkorn', 'sans-serif'],
+      additional: ['Ubuntu', 'sans-serif'],
+  },
     extend: {},
   },
-  variants: {
-    extend: {},
-  },
+  variants: {},
   plugins: [],
 };
