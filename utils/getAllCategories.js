@@ -20,7 +20,7 @@ function mountCategories(categoriesUsedInArticles, availableCategories) {
 }
 
 function sortCategories(categories) {
-  return categories.sort((a, b) => (a.count > b.count ? 1 : -1));
+  return categories.sort((a, b) => (a.count < b.count ? 1 : -1));
 }
 
 function prepareCategories(allArticles, categories) {
