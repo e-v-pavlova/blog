@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import getAllCategories from '@/utils/getAllCategories';
-
 export default {
   name: 'AllCategories',
   data: () => ({
@@ -30,8 +28,38 @@ export default {
   async fetch() {
     const articles = await this.$content('articles').only(['categories']).fetch();
     const categories = await this.$content('categories').only(['slug', 'name']).fetch();
+    this.mountData(articles, categories);
+  },
+  methods: {
+    mountData(articles, categories) {
     this.totalArticles = articles.length;
-    this.categories = getAllCategories(articles, categories);
+      const categoriesUsedInArticles = this.countCategoriesUsedInArticles(articles);
+      this.categories = this.mountCategories(categories, categoriesUsedInArticles);
+      this.sortCategories(this.categories);
+    },
+    countCategoriesUsedInArticles(articles) {
+      return articles.reduce((acc, article) => {
+        if (article.categories) {
+          article.categories.forEach((category) => {
+            acc[category.toLowerCase()] = (acc[category.toLowerCase()] || 0) + 1;
+          });
+        }
+        return acc;
+      }, {});
+    },
+    mountCategories(availableCategories, categoriesUsedInArticles) {
+      return availableCategories
+        .filter((category) => (
+          Object.prototype.hasOwnProperty.call(categoriesUsedInArticles, category.name.toLowerCase())
+        )).map((category) => {
+          const mountedCategory = { ...category };
+          mountedCategory.count = categoriesUsedInArticles[category.name.toLowerCase()];
+          return mountedCategory;
+        });
+    },
+    sortCategories(categories) {
+      return categories.sort((a, b) => (a.count < b.count ? 1 : -1));
+    },
   },
 };
 </script>
