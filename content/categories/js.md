@@ -1,3 +1,3 @@
 ---
-name: JS
+name: Js
 ---
