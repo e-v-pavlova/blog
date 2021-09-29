@@ -24,9 +24,7 @@ function sortCategories(categories) {
   return categories.sort((a, b) => (a.count < b.count ? 1 : -1));
 }
 
-export default async ($content) => {
-  const allArticles = await $content('articles').only(['categories']).fetch();
-  const availableCategories = await $content('categories').only(['slug', 'name']).fetch();
+export default (allArticles, availableCategories) => {
   const categoriesUsedInArticles = countCategoriesUsedInArticles(allArticles);
   const mountedCategories = mountCategories(availableCategories, categoriesUsedInArticles);
   return sortCategories(mountedCategories);

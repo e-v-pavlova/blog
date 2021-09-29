@@ -1,6 +1,11 @@
 <template>
   <div>
     <nuxt-link
+      to="/blog"
+    >
+      {{ `All (${totalArticles})` }}
+    </nuxt-link>
+    <nuxt-link
       v-for="category of categories"
       :key="`category-${category.name}`"
       :to="{
@@ -20,9 +25,13 @@ export default {
   name: 'AllCategories',
   data: () => ({
     categories: [],
+    totalArticles: 0,
   }),
   async fetch() {
-    this.categories = await getAllCategories(this.$content);
+    const articles = await this.$content('articles').only(['categories']).fetch();
+    const categories = await this.$content('categories').only(['slug', 'name']).fetch();
+    this.totalArticles = articles.length;
+    this.categories = getAllCategories(articles, categories);
   },
 };
 </script>
