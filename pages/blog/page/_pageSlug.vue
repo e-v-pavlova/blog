@@ -1,8 +1,6 @@
 <template>
   <div>
-    <category-list
-      :categories="categories"
-    />
+    <all-categories />
     <article-list
       :articles="articles"
     />
@@ -17,18 +15,15 @@
 <script>
 import getMetadata from '@/utils/getMetadata';
 import getPageContent from '@/utils/getPageContent';
-import getAllCategories from '@/utils/getAllCategories';
 
 export default {
   async asyncData({ $content, params, error }) {
     const currentPage = parseInt(params.pageSlug, 10);
     const pageContent = await getPageContent($content, currentPage, error);
-    const categories = await getAllCategories($content);
     return {
       currentPage,
       lastPage: pageContent.lastPage,
       articles: pageContent.paginatedArticles,
-      categories,
     };
   },
   head() {
