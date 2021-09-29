@@ -1,20 +1,36 @@
 <template>
   <div>
+    <span
+      v-if="currentCategory === 'All'"
+    >
+      {{ `All (${totalArticles})` }}
+    </span>
     <nuxt-link
+      v-else
       to="/blog"
     >
       {{ `All (${totalArticles})` }}
     </nuxt-link>
-    <nuxt-link
+    <template
       v-for="category of categories"
-      :key="`category-${category.name}`"
-      :to="{
-        name: 'blog-category-categorySlug',
-        params: { categorySlug: category.slug }
-      }"
     >
-      {{ `${category.name} (${category.count})` }}
-    </nuxt-link>
+      <span
+        v-if="currentCategory === category.slug"
+        :key="`category-${category.name}`"
+      >
+        {{ `${category.name} (${category.count})` }}
+      </span>
+      <nuxt-link
+        v-else
+        :key="`category-${category.name}`"
+        :to="{
+          name: 'blog-category-categorySlug',
+          params: { categorySlug: category.slug }
+        }"
+      >
+        {{ `${category.name} (${category.count})` }}
+      </nuxt-link>
+    </template>
   </div>
 </template>
 
@@ -24,6 +40,7 @@ export default {
   data: () => ({
     categories: [],
     totalArticles: 0,
+    currentCategory: 'All',
   }),
   async fetch() {
     const articles = await this.$content('articles').only(['categories']).fetch();
@@ -32,10 +49,11 @@ export default {
   },
   methods: {
     mountData(articles, categories) {
-    this.totalArticles = articles.length;
+      this.totalArticles = articles.length;
       const categoriesUsedInArticles = this.countCategoriesUsedInArticles(articles);
       this.categories = this.mountCategories(categories, categoriesUsedInArticles);
       this.sortCategories(this.categories);
+      this.currentCategory = this.$route.params.categorySlug ? this.$route.params.categorySlug : 'All';
     },
     countCategoriesUsedInArticles(articles) {
       return articles.reduce((acc, article) => {
