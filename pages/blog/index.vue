@@ -2,7 +2,9 @@
   <div>
     <div>
       <all-categories />
-      <paginated-articles />
+      <paginated-articles
+        pagination-route-name="blog-page-pageSlug"
+      />
     </div>
   </div>
 </template>

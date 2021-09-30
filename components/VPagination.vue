@@ -1,15 +1,10 @@
 <template>
   <div class="pagination">
-    <span
-      v-if="current <= 1"
-      class="item disabled"
-    >
-      Prev
-    </span>
     <nuxt-link
-      v-else
-      class="item"
-      :to="{ name:'blog-page-pageSlug', params: { pageSlug: current - 1 } }"
+      :is="current <= 1 ? 'span' : 'nuxt-link'"
+      :to="current <= 1
+        ? undefined
+        : { name: (routeName || $route.name), params: { pageSlug: current - 1 } }"
     >
       Prev
     </nuxt-link>
@@ -43,21 +38,16 @@
         v-else
         :key="`page-${index}`"
         class="item"
-        :to="{ name:'blog-page-pageSlug', params: { pageSlug: index } }"
+        :to="{ name: (routeName || $route.name), params: { pageSlug: index } }"
       >
         {{ index }}
       </nuxt-link>
     </template>
-    <span
-      v-if="current >= total"
-      class="item disabled"
-    >
-      Next
-    </span>
     <nuxt-link
-      v-else
-      class="item"
-      :to="{ name:'blog-page-pageSlug', params: { pageSlug: current + 1} }"
+      :is="current >= total ? 'span' : 'nuxt-link'"
+      :to="current >= total
+        ? undefined
+        : { name: (routeName || $route.name), params: { pageSlug: current + 1} }"
     >
       Next
     </nuxt-link>
@@ -82,6 +72,10 @@ export default {
     offset: {
       type: Number,
       default: 1,
+    },
+    routeName: {
+      type: String,
+      default: '',
     },
   },
 };

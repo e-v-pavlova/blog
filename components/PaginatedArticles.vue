@@ -3,10 +3,11 @@
     <article-list
       :articles="paginatedArticles"
     />
-    <article-pagination
+    <v-pagination
       v-if="lastPage > 1"
       :total="lastPage"
       :current="currentPage"
+      :route-name="paginationRouteName"
     />
   </div>
 </template>
@@ -14,6 +15,12 @@
 <script>
 export default {
   name: 'PaginatedArticles',
+  props: {
+    paginationRouteName: {
+      type: String,
+      default: '',
+    },
+  },
   data: () => ({
     perPage: 5,
     allArticles: [],
