@@ -1,31 +1,14 @@
 <template>
   <div>
     <all-categories />
-    <article-list
-      :articles="articles"
-    />
-    <article-pagination
-      v-if="lastPage > 1"
-      :total="lastPage"
-      :current="currentPage"
-    />
+    <paginated-articles />
   </div>
 </template>
 
 <script>
 import getMetadata from '@/utils/getMetadata';
-import getPageContent from '@/utils/getPageContent';
 
 export default {
-  async asyncData({ $content, params, error }) {
-    const currentPage = parseInt(params.pageSlug, 10);
-    const pageContent = await getPageContent($content, currentPage, error);
-    return {
-      currentPage,
-      lastPage: pageContent.lastPage,
-      articles: pageContent.paginatedArticles,
-    };
-  },
   head() {
     return {
       title: `Blog page ${this.$route.params.pageSlug}`,
