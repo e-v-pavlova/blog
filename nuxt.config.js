@@ -20,6 +20,18 @@ export default {
     },
   },
   components: true,
+  hooks: {
+    'content:file:beforeInsert': (document) => {
+      if (document.extension === '.md') {
+        if (document.categories && Array.isArray(document.categories)) {
+          // eslint-disable-next-line no-param-reassign
+          document.case_insensitive__categories = document.categories.map((category) => (
+            typeof category === 'string' ? category.toLocaleLowerCase() : category
+          ));
+        }
+      }
+    },
+  },
   sitemap: {
     hostname: process.env.BASE_URL,
   },
