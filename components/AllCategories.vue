@@ -43,7 +43,7 @@ export default {
     currentCategory: 'All',
   }),
   async fetch() {
-    const articles = await this.$content('articles').only(['case_insensitive__categories']).fetch();
+    const articles = await this.$content('articles').only(['lowercaseCategories']).fetch();
     const categories = await this.$content('categories').only(['slug', 'name']).fetch();
     this.mountData(articles, categories);
   },
@@ -57,8 +57,8 @@ export default {
     },
     countCategoriesUsedInArticles(articles) {
       return articles.reduce((acc, article) => {
-        if (article.case_insensitive__categories) {
-          article.case_insensitive__categories.forEach((category) => {
+        if (article.lowercaseCategories) {
+          article.lowercaseCategories.forEach((category) => {
             acc[category] = (acc[category] || 0) + 1;
           });
         }
