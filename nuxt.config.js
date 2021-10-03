@@ -23,10 +23,10 @@ export default {
   hooks: {
     'content:file:beforeInsert': (document) => {
       if (document.extension === '.md') {
-        if (document.categories && Array.isArray(document.categories)) {
+        if (document.tags && Array.isArray(document.tags)) {
           // eslint-disable-next-line no-param-reassign
-          document.lowercaseCategories = document.categories.map((category) => (
-            typeof category === 'string' ? category.toLocaleLowerCase() : category
+          document.lowercaseTags = document.tags.map((tag) => (
+            typeof tag === 'string' ? tag.toLocaleLowerCase() : tag
           ));
         }
       }

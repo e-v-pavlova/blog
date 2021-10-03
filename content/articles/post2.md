@@ -1,7 +1,7 @@
 ---
 title: Post 2
 description: post 2 description
-categories:
+tags:
   - js
   - VS Code
 ---

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <all-categories />
+      <all-tags />
       <paginated-articles
         pagination-route-name="blog-page-pageSlug"
       />

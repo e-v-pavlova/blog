@@ -39,13 +39,13 @@ import getMetadata from '@/utils/getMetadata';
 export default {
   async asyncData({ $content, params }) {
     const article = await $content('articles', params.articleSlug).fetch();
-    let categories;
-    if (article.categories) {
-      const categoryList = await $content('categories')
+    let tags;
+    if (article.tags) {
+      const tagList = await $content('tags')
         .only(['name', 'slug'])
-        .where({ name: { $containsAny: article.categories } })
+        .where({ name: { $containsAny: article.tags } })
         .fetch();
-      categories = categoryList.map((obj) => ({ ...obj, url: `/blog/category/${obj.slug}` }));
+      tags = tagList.map((obj) => ({ ...obj, url: `/blog/tag/${obj.slug}` }));
     }
     const [prev, next] = await $content('articles')
       .only(['title', 'slug'])
@@ -54,7 +54,7 @@ export default {
       .fetch();
     return {
       article,
-      categories,
+      tags,
       prev,
       next,
     };
@@ -81,7 +81,7 @@ export default {
         },
         {
           property: 'article:tag',
-          content: this.article.categories ? this.article.categories.toString() : '',
+          content: this.article.tags ? this.article.tags.toString() : '',
         },
       ],
     };
@@ -94,9 +94,9 @@ export default {
           url: '/blog',
         },
       ];
-      if (this.categories) {
+      if (this.tags) {
         items.push({
-          elems: this.categories,
+          elems: this.tags,
         });
       }
       return items;

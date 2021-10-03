@@ -1,6 +1,6 @@
 <template>
   <div>
-    <all-categories />
+    <all-tags />
     <paginated-articles />
   </div>
 </template>

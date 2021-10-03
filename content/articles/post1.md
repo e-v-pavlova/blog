@@ -1,7 +1,7 @@
 ---
 title: Post 1
 description: post 1 description
-categories:
+tags:
   - Nuxt
   - Js
 ---

@@ -50,8 +50,8 @@ export default {
   },
   methods: {
     applyFilter() {
-      if (this.articlesFilter && this.articlesFilter.categoryName) {
-        return { lowercaseCategories: { $contains: this.articlesFilter.categoryName.toLowerCase() } };
+      if (this.articlesFilter && this.articlesFilter.tagName) {
+        return { lowercaseTags: { $contains: this.articlesFilter.tagName.toLowerCase() } };
       }
       return undefined;
     },

@@ -1,7 +1,7 @@
 ---
 title: Post 4
 description: post 4 description
-categories:
+tags:
   - Vue 
 ---
 
