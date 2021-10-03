@@ -27,7 +27,7 @@ export default {
   },
   data: () => ({
     perPage: 5,
-    allArticles: [],
+    articles: [],
     totalArticles: 0,
     currentPage: 1,
     lastPage: 1,
@@ -35,7 +35,7 @@ export default {
     paginatedArticles: [],
   }),
   async fetch() {
-    this.allArticles = await this.$content('articles')
+    this.articles = await this.$content('articles')
       .where(this.applyFilter())
       .fetch();
     this.mountData();
@@ -56,7 +56,7 @@ export default {
       return undefined;
     },
     mountData() {
-      this.totalArticles = this.allArticles.length;
+      this.totalArticles = this.articles.length;
       if (this.$route.params.pageSlug) {
         this.currentPage = parseInt(this.$route.params.pageSlug, 10);
       }
