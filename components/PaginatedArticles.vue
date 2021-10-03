@@ -16,6 +16,10 @@
 export default {
   name: 'PaginatedArticles',
   props: {
+    articlesFilter: {
+      type: Object,
+      default: () => ({}),
+    },
     paginationRouteName: {
       type: String,
       default: '',
@@ -31,9 +35,12 @@ export default {
     paginatedArticles: [],
   }),
   async fetch() {
-    this.allArticles = await this.$content('articles').only(['categories']).fetch();
+    this.allArticles = await this.$content('articles')
+      .where(this.applyFilter())
+      .fetch();
     this.mountData();
     this.paginatedArticles = await this.$content('articles')
+      .where(this.applyFilter())
       .only(['title', 'description', 'slug', 'createdAt'])
       .sortBy('createdAt', 'desc')
       .limit(this.perPage)
@@ -42,6 +49,12 @@ export default {
     this.checkForErrors();
   },
   methods: {
+    applyFilter() {
+      if (this.articlesFilter && this.articlesFilter.categoryName) {
+        return { lowercaseCategories: { $contains: this.articlesFilter.categoryName.toLowerCase() } };
+      }
+      return undefined;
+    },
     mountData() {
       this.totalArticles = this.allArticles.length;
       if (this.$route.params.pageSlug) {
