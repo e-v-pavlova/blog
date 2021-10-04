@@ -1,7 +1,39 @@
+<template>
+  <div>
+    <div>
+      <all-tags />
+      <paginated-articles
+        pagination-route-name="blog-page-pageSlug"
+      />
+    </div>
+  </div>
+</template>
+
 <script>
+import getMetadata from '@/utils/getMetadata';
+
 export default {
-  middleware({ redirect }) {
-    return redirect('/blog');
+  head() {
+    return {
+      title: 'Blog',
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: this.$config.baseUrl,
+        },
+      ],
+      meta: this.metadata,
+    };
+  },
+  computed: {
+    metadata() {
+      const meta = {
+        title: 'Blog',
+        description: 'List of articles',
+      };
+      return getMetadata(meta, this.$config.baseUrl);
+    },
   },
 };
 </script>
