@@ -43,9 +43,10 @@ export default {
     if (article.tags) {
       const tagList = await $content('tags')
         .only(['name', 'slug'])
-        .where({ name: { $containsAny: article.tags } })
         .fetch();
-      tags = tagList.map((obj) => ({ ...obj, url: `/blog/tag/${obj.slug}` }));
+      tags = tagList.filter((tag) => (
+        (article.lowercaseTags || article.tags).indexOf(tag.name.toLowerCase()) !== -1
+      )).map((obj) => ({ ...obj, url: `/blog/tag/${obj.slug}` }));
     }
     const [prev, next] = await $content('articles')
       .only(['title', 'slug'])
