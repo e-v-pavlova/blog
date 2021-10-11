@@ -7,7 +7,11 @@ module.exports = {
       secondary: ['Vollkorn', 'sans-serif'],
       additional: ['Ubuntu', 'sans-serif'],
   },
-    extend: {},
+    extend: {
+      colors: {
+        'green-persian': '#00a693',
+      },
+    },
   },
   variants: {},
   plugins: [],

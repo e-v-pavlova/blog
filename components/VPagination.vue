@@ -1,12 +1,26 @@
 <template>
-  <div class="pagination">
+  <div class="flex justify-center my-3 -mx-2 text-base text-gray-400 sm:my-6">
     <nuxt-link
       :is="current <= 1 ? 'span' : 'nuxt-link'"
       :to="current <= 1
         ? undefined
         : { name: (routeName || $route.name), params: { pageSlug: current - 1 } }"
+      :class="current <= 1
+        ? 'cursor-default opacity-0'
+        : 'hover:text-green-persian cursor-pointer'"
+      class="flex items-center justify-center w-10 p-1 mx-2 item"
     >
-      Prev
+      <svg
+        width="100%"
+        height="100%"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="1.5"
+        class="feather feather-chevron-left w-5 h-5 mt-0.5"
+      >
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
     </nuxt-link>
     <template
       v-for="index in total"
@@ -22,7 +36,7 @@
         <span
           v-show="Math.abs(current - index) === offset + 1"
           :key="`page-${index}`"
-          class="item separator"
+          class="p-1 mx-2 cursor-default item separator"
         >
           {{ separator }}
         </span>
@@ -30,15 +44,15 @@
       <span
         v-else-if="current === index"
         :key="`page-${index}`"
-        class="item disabled current"
+        class="p-1 mx-2 font-bold text-black cursor-default item disabled current"
       >
         {{ index }}
       </span>
       <nuxt-link
         v-else
         :key="`page-${index}`"
-        class="item"
         :to="{ name: (routeName || $route.name), params: { pageSlug: index } }"
+        class="p-1 mx-2 transition-colors cursor-pointer item hover:text-green-persian"
       >
         {{ index }}
       </nuxt-link>
@@ -48,8 +62,22 @@
       :to="current >= total
         ? undefined
         : { name: (routeName || $route.name), params: { pageSlug: current + 1} }"
+      :class="current >= total
+        ? 'cursor-default opacity-0'
+        : 'hover:text-green-persian cursor-pointer'"
+      class="flex items-center justify-center w-10 p-1 mx-2 item"
     >
-      Next
+      <svg
+        width="100%"
+        height="100%"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="1.5"
+        class="feather feather-chevron-right w-5 h-5 mt-0.5"
+      >
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
     </nuxt-link>
   </div>
 </template>
