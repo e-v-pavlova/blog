@@ -17,8 +17,25 @@ module.exports = {
       colors: {
         'green-persian': '#00a693',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            a: {
+              color: '#00a693',
+              textDecoration: 'none',
+              '&:hover': {
+                color: '#00a693',
+                textDecoration: 'underline',
+              },
+            },
+          },
+        },
+      },
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    // eslint-disable-next-line global-require
+    require('@tailwindcss/typography'),
+  ],
 };

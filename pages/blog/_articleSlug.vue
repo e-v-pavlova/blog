@@ -1,11 +1,15 @@
 <template>
   <div>
     <the-breadcrumbs :items="breadcrumbs" />
-    <article>
+    <div>
       <h1>{{ article.title }}</h1>
       <p>{{ article.description }}</p>
       <p>Post was created: {{ formatDate(article.createdAt) }}</p>
       <p>Post last updated: {{ formatDate(article.updatedAt) }}</p>
+    </div>
+    <article
+      class="prose lg:prose-lg"
+    >
       <nuxt-content :document="article" />
     </article>
     <nav>
