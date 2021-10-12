@@ -8,6 +8,7 @@
       :total="lastPage"
       :current="currentPage"
       :route-name="paginationRouteName"
+      class="mt-3 mb-6 lg:mt-8 lg:mb-14"
     />
   </div>
 </template>
