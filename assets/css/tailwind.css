@@ -45,17 +45,31 @@
     font-weight: 700;
     font-style: normal;
   }
-  h1 {
-    @apply text-6xl;
+  body {
+    @apply font-primary;
+    @apply text-base;
+    @apply lg:text-lg;
+    @apply text-gray-700;
+  }
+  h1, h2, h3, h4, h5 {
     @apply font-secondary;
     @apply font-bold;
+  }
+  h1 {
+    @apply text-3xl;
+    @apply lg:text-5xl;
   }
   h2 {
-    @apply text-3xl;
-    @apply font-secondary;
-    @apply font-bold;
+    @apply text-2xl;
+    @apply lg:text-3xl;
   }
-  p {
-    @apply font-primary;
+  h3 {
+    @apply text-2xl;
+  }
+  .nuxt-content-highlight {
+    @apply relative;
+  }
+  .nuxt-content-highlight .filename {
+    @apply absolute right-0 z-10 mt-1 mr-2 text-sm font-light text-gray-600;
   }
 }

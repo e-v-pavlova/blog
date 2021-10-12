@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <all-tags />
+      <all-tags class="md:pl-52" />
       <paginated-articles
         pagination-route-name="blog-tag-tagSlug-page-pageSlug"
         :articles-filter="{

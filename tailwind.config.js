@@ -12,7 +12,7 @@ module.exports = {
       primary: ['Lato', 'sans-serif'],
       secondary: ['Vollkorn', 'sans-serif'],
       additional: ['Ubuntu', 'sans-serif'],
-  },
+    },
     extend: {
       colors: {
         'green-persian': '#00a693',
@@ -30,6 +30,12 @@ module.exports = {
             },
           },
         },
+      },
+      width: {
+        content: '37.7rem',
+        'content-lg': '42.4rem',
+        'toc-lg': '23rem',
+        'content-plus-toc': '65.4rem',
       },
     },
   },

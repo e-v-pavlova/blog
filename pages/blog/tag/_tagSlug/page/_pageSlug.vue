@@ -1,6 +1,6 @@
 <template>
   <div>
-    <all-tags />
+    <all-tags class="md:pl-52" />
     <paginated-articles
       :articles-filter="{
         tagName: tag.name,
