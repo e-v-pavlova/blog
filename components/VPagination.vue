@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center my-3 -mx-2 text-base text-gray-400 sm:my-6">
+  <div class="flex justify-center -mx-2 text-base text-gray-400">
     <nuxt-link
       :is="current <= 1 ? 'span' : 'nuxt-link'"
       :to="current <= 1
@@ -17,7 +17,7 @@
         viewBox="0 0 24 24"
         stroke="currentColor"
         stroke-width="1.5"
-        class="feather feather-chevron-left w-5 h-5 mt-0.5"
+        class="w-5 h-5 feather feather-chevron-left"
       >
         <polyline points="15 18 9 12 15 6" />
       </svg>
@@ -74,7 +74,7 @@
         viewBox="0 0 24 24"
         stroke="currentColor"
         stroke-width="1.5"
-        class="feather feather-chevron-right w-5 h-5 mt-0.5"
+        class="w-5 h-5 feather feather-chevron-right"
       >
         <polyline points="9 18 15 12 9 6" />
       </svg>
