@@ -92,5 +92,11 @@ export default {
   },
   generate: {
     fallback: '404.html',
+    exclude: [
+      '/blog',
+      /^\/blog\/page(\/1)?$/,
+      '/blog/tag',
+      /^\/blog\/tag\/\w*\/page(\/1)?$/,
+    ],
   },
 };
