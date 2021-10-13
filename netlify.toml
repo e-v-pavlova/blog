@@ -1,0 +1,50 @@
+[build.environment]
+  BASE_URL = $URL
+
+[[redirects]]
+  from = "/blog"
+  to = "/"
+[[redirects]]
+  from = "/blog/page"
+  to = "/"
+[[redirects]]
+  from = "/blog/page/1"
+  to = "/"
+[[redirects]]
+  from = "/blog/tag"
+  to = "/"
+
+[[redirects]]
+  from = "/blog/tag/js/page"
+  to = "/blog/tag/js"
+[[redirects]]
+  from = "/blog/tag/js/page/1"
+  to = "/blog/tag/js"
+
+[[redirects]]
+  from = "/blog/tag/node/page"
+  to = "/blog/tag/node"
+[[redirects]]
+  from = "/blog/tag/node/page/1"
+  to = "/blog/tag/node"
+
+[[redirects]]
+  from = "/blog/tag/nuxt/page"
+  to = "/blog/tag/nuxt"
+[[redirects]]
+  from = "/blog/tag/nuxt/page/1"
+  to = "/blog/tag/nuxt"
+
+[[redirects]]
+  from = "/blog/tag/vs_code/page"
+  to = "/blog/tag/vs_code"
+[[redirects]]
+  from = "/blog/tag/vs_code/page/1"
+  to = "/blog/tag/vs_code"
+
+[[redirects]]
+  from = "/blog/tag/vue/page"
+  to = "/blog/tag/vue"
+[[redirects]]
+  from = "/blog/tag/vue/page/1"
+  to = "/blog/tag/vue"
