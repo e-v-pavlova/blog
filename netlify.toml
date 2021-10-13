@@ -4,47 +4,61 @@
 [[redirects]]
   from = "/blog"
   to = "/"
+  force = true
 [[redirects]]
   from = "/blog/page"
   to = "/"
+  force = true
 [[redirects]]
   from = "/blog/page/1"
   to = "/"
+  force = true
 [[redirects]]
   from = "/blog/tag"
   to = "/"
+  force = true
 
 [[redirects]]
   from = "/blog/tag/js/page"
   to = "/blog/tag/js"
+  force = true
 [[redirects]]
   from = "/blog/tag/js/page/1"
   to = "/blog/tag/js"
+  force = true
 
 [[redirects]]
   from = "/blog/tag/node/page"
   to = "/blog/tag/node"
+  force = true
 [[redirects]]
   from = "/blog/tag/node/page/1"
   to = "/blog/tag/node"
+  force = true
 
 [[redirects]]
   from = "/blog/tag/nuxt/page"
   to = "/blog/tag/nuxt"
+  force = true
 [[redirects]]
   from = "/blog/tag/nuxt/page/1"
   to = "/blog/tag/nuxt"
+  force = true
 
 [[redirects]]
   from = "/blog/tag/vs_code/page"
   to = "/blog/tag/vs_code"
+  force = true
 [[redirects]]
   from = "/blog/tag/vs_code/page/1"
   to = "/blog/tag/vs_code"
+  force = true
 
 [[redirects]]
   from = "/blog/tag/vue/page"
   to = "/blog/tag/vue"
+  force = true
 [[redirects]]
   from = "/blog/tag/vue/page/1"
   to = "/blog/tag/vue"
+  force = true
