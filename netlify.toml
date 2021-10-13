@@ -1,5 +1,5 @@
-[build.environment]
-  BASE_URL = $URL
+[build]
+  command = "BASE_URL=$URL nuxt generate"
 
 [[redirects]]
   from = "/blog"
