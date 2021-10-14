@@ -8,6 +8,7 @@
       :total="lastPage"
       :current="currentPage"
       :route-name="paginationRouteName"
+      :first-page-route-name="paginationFirstPageRouteName"
       class="mt-3 mb-6 lg:mt-8 lg:mb-14"
     />
   </div>
@@ -22,6 +23,10 @@ export default {
       default: () => ({}),
     },
     paginationRouteName: {
+      type: String,
+      default: '',
+    },
+    paginationFirstPageRouteName: {
       type: String,
       default: '',
     },

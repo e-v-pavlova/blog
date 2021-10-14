@@ -1,7 +1,9 @@
 <template>
   <div>
     <all-tags class="md:pl-52" />
-    <paginated-articles />
+    <paginated-articles
+      pagination-first-page-route-name="index"
+    />
   </div>
 </template>
 

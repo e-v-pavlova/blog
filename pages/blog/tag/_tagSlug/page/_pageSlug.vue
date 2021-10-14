@@ -2,6 +2,7 @@
   <div>
     <all-tags class="md:pl-52" />
     <paginated-articles
+      pagination-first-page-route-name="blog-tag-tagSlug"
       :articles-filter="{
         tagName: tag.name,
       }"

@@ -4,7 +4,9 @@
       :is="current <= 1 ? 'span' : 'nuxt-link'"
       :to="current <= 1
         ? undefined
-        : { name: (routeName || $route.name), params: { pageSlug: current - 1 } }"
+        : current === 2 && firstPageRouteName
+          ? { name: firstPageRouteName }
+          : { name: (routeName || $route.name), params: { pageSlug: current - 1 } }"
       :class="current <= 1
         ? 'cursor-default opacity-0'
         : 'hover:text-green-persian cursor-pointer'"
@@ -51,7 +53,9 @@
       <nuxt-link
         v-else
         :key="`page-${index}`"
-        :to="{ name: (routeName || $route.name), params: { pageSlug: index } }"
+        :to="index === 1 && firstPageRouteName
+          ? { name: firstPageRouteName }
+          : { name: (routeName || $route.name), params: { pageSlug: index } }"
         class="p-1 mx-2 transition-colors cursor-pointer item hover:text-green-persian"
       >
         {{ index }}
@@ -102,6 +106,10 @@ export default {
       default: 1,
     },
     routeName: {
+      type: String,
+      default: '',
+    },
+    firstPageRouteName: {
       type: String,
       default: '',
     },
